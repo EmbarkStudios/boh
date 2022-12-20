@@ -1,0 +1,21 @@
+[package]
+name = "boh"
+description = "A holder of many things"
+repository = "https://github.com/EmbarkStudios/boh"
+version = "0.0.1"
+authors = [
+  "Embark <opensource@embark-studios.com>",
+  "Jake Shadle <jake.shadle@embark-studios.com>",
+]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+documentation = "https://docs.rs/boh"
+homepage = "https://github.com/EmbarkStudios/boh"
+categories = ["development-tools::build-utils"]
+keywords = ["wasm"]
+exclude = ["examples/", ".github/", "tests"]
+rust-version = "1.66.0"
+
+[dependencies]
+wasmtime = "3.0"
