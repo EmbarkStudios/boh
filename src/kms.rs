@@ -119,7 +119,7 @@ async fn encrypt(args: Encrypt, client: reqwest::Client) -> anyhow::Result<()> {
         .await
         .context("failed to deserialize body")?;
 
-    std::fs::write(&args.output, &body.ciphertext).with_context(|| {
+    std::fs::write(&args.output, body.ciphertext).with_context(|| {
         format!(
             "failed to write encrypted data to {}",
             args.output.display()

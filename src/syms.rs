@@ -23,7 +23,7 @@ pub fn gather_objects(dirs: Vec<PathBuf>) -> Vec<ObjectFile> {
         .filter_map(|entry| {
             entry
                 .ok()
-                .and_then(|entry| entry.file_type().is_file().then(|| entry))
+                .and_then(|entry| entry.file_type().is_file().then_some(entry))
         })
         .par_bridge()
         .filter_map(|entry| {
