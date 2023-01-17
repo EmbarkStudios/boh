@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+### Added
+- First pass, just adding the pieces we need. This is definitely not the way this crate is intended to work in the future.
 
 ## [0.0.1] - 2022-12-20
 ### Added
