@@ -1,6 +1,7 @@
 pub mod artifact;
 pub mod gcs;
 pub mod kms;
+pub mod kubectl;
 pub mod syms;
 
 pub trait Scopes {

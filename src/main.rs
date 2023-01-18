@@ -5,11 +5,12 @@ use clap::Parser;
 #[derive(Parser)]
 #[clap(author, version, about)]
 enum Args {
-    #[clap(subcommand)]
-    Kms(boh::kms::Args),
+    Artifact(boh::artifact::Args),
     #[clap(subcommand)]
     Gcs(boh::gcs::Args),
-    Artifact(boh::artifact::Args),
+    #[clap(subcommand)]
+    Kms(boh::kms::Args),
+    Kubectl(boh::kubectl::Args),
     Syms(boh::syms::Args),
 }
 
@@ -18,9 +19,10 @@ async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
     let scopes = match &args {
-        Args::Kms(a) => a.scopes(),
-        Args::Gcs(a) => a.scopes(),
         Args::Artifact(a) => a.scopes(),
+        Args::Gcs(a) => a.scopes(),
+        Args::Kms(a) => a.scopes(),
+        Args::Kubectl(a) => a.scopes(),
         Args::Syms(a) => a.scopes(),
     };
 
@@ -39,9 +41,10 @@ async fn main() -> anyhow::Result<()> {
         .context("failed to build client")?;
 
     match args {
-        Args::Kms(kms) => boh::kms::run(kms, client).await?,
-        Args::Gcs(gcs) => boh::gcs::run(gcs, client).await?,
         Args::Artifact(gcs) => boh::artifact::run(gcs, client).await?,
+        Args::Gcs(gcs) => boh::gcs::run(gcs, client).await?,
+        Args::Kms(kms) => boh::kms::run(kms, client).await?,
+        Args::Kubectl(kube) => boh::kubectl::run(kube, client).await?,
         Args::Syms(syms) => {
             let hm = {
                 let mut hm = reqwest::header::HeaderMap::new();
