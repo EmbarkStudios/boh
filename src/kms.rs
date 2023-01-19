@@ -94,7 +94,7 @@ struct Ciphertext {
 }
 
 /// <https://cloud.google.com/kms/docs/encrypt-decrypt#encrypt>
-async fn encrypt(args: Encrypt, client: reqwest::Client) -> anyhow::Result<()> {
+async fn encrypt(args: Encrypt, client: Client) -> anyhow::Result<()> {
     let url = format!("https://cloudkms.googleapis.com/v1/projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}:encrypt",
         project = args.key_info.project,
         location = args.key_info.location,
@@ -130,7 +130,7 @@ async fn encrypt(args: Encrypt, client: reqwest::Client) -> anyhow::Result<()> {
 }
 
 /// <https://cloud.google.com/kms/docs/encrypt-decrypt#decrypt>
-async fn decrypt(args: Decrypt, client: reqwest::Client) -> anyhow::Result<()> {
+async fn decrypt(args: Decrypt, client: Client) -> anyhow::Result<()> {
     let url = format!("https://cloudkms.googleapis.com/v1/projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}:decrypt",
         project = args.key_info.project,
         location = args.key_info.location,
@@ -170,7 +170,9 @@ async fn decrypt(args: Decrypt, client: reqwest::Client) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn run(args: Args, client: Client) -> anyhow::Result<()> {
+pub async fn run(args: Args, client: reqwest::ClientBuilder) -> anyhow::Result<()> {
+    let client = client.build()?;
+
     match args {
         Args::Encrypt(args) => encrypt(args, client).await?,
         Args::Decrypt(args) => decrypt(args, client).await?,
