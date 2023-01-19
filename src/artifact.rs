@@ -273,7 +273,9 @@ struct Item {
     targets: Vec<TaggedImage>,
 }
 
-pub async fn run(args: Args, client: reqwest::Client) -> anyhow::Result<()> {
+pub async fn run(args: Args, client: reqwest::ClientBuilder) -> anyhow::Result<()> {
+    let client = client.build()?;
+
     let mc = {
         use std::io::Read;
         let mut mc = String::new();

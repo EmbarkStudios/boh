@@ -48,15 +48,28 @@ pub(super) async fn run(client: super::K8sClient, args: Args) -> anyhow::Result<
 
             let url = client.make_url(kind, name);
 
-            client
+            let res = client
                 .client
                 .patch(url)
                 .header(http::header::ACCEPT, "application/json")
                 .header(http::header::CONTENT_TYPE, "application/merge-patch+json")
                 .body(serde_json::to_vec(&patch).context("failed to write serialize json patch")?)
                 .send()
-                .await?
-                .error_for_status()?;
+                .await?;
+
+            let code = res.status();
+            let body = res.bytes().await?;
+
+            if !code.is_success() {
+                if let Ok(err_str) = String::from_utf8(body.into()) {
+                    anyhow::bail!(err_str);
+                } else {
+                    anyhow::bail!("failed to retrieve error for {code}");
+                }
+            }
+
+            use std::io::Write;
+            let _ = std::io::stdout().write(&body);
         }
     }
 

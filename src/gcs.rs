@@ -13,9 +13,9 @@ impl crate::Scopes for Args {
     }
 }
 
-pub async fn run(args: Args, client: reqwest::Client) -> anyhow::Result<()> {
+pub async fn run(args: Args, client: reqwest::ClientBuilder) -> anyhow::Result<()> {
     let rctx = util::RequestContext {
-        client,
+        client: client.build()?,
         obj: tame_gcs::objects::Object::default(),
     };
 
