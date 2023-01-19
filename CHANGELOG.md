@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+## [0.1.1] - 2023-01-19
 ### Added
 - [PR#2](https://github.com/EmbarkStudios/boh/pull/2) added the `kubectl rollout restart deployment/<resource>` command.
 
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial crate squat
 
 <!-- next-url -->
-[Unreleased]: https://github.com/EmbarkStudios/boh/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/EmbarkStudios/boh/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/EmbarkStudios/boh/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/EmbarkStudios/boh/compare/0.0.1...0.1.0
 [0.0.1]: https://github.com/EmbarkStudios/boh/releases/tag/0.0.1

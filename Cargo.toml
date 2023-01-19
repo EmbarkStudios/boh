@@ -2,7 +2,7 @@
 name = "boh"
 description = "A holder of many things"
 repository = "https://github.com/EmbarkStudios/boh"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   "Embark <opensource@embark-studios.com>",
   "Jake Shadle <jake.shadle@embark-studios.com>",
