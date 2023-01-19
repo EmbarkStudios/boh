@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+### Added
+- [PR#2](https://github.com/EmbarkStudios/boh/pull/2) added the `kubectl rollout restart deployment/<resource>` command.
+
 ## [0.1.0] - 2023-01-17
 ### Added
 - First pass, just adding the pieces we need. This is definitely not the way this crate is intended to work in the future.
