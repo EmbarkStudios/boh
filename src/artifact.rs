@@ -217,25 +217,27 @@ async fn add_tag(
 
     // The docker HTTP API doesn't have a dedicated way to add tags to an existing
     // image, so we just download the manifest and reupload it with the new tag
-    let manifest_raw = client
+    let manifest_resp = client
         .get(format!(
             "https://{region}-docker.pkg.dev/v2/{src_repo}/{}/manifests/{}",
             source.name, source.tag
         ))
         .send()
-        .await?
-        .error_for_status()?
-        .bytes()
         .await?;
+
+    let content_type = manifest_resp
+        .headers()
+        .get(http::header::CONTENT_TYPE)
+        .context("couldn't extract content type")?
+        .clone();
+
+    let manifest_raw = manifest_resp.error_for_status()?.bytes().await?;
 
     let mut rb = client.put(format!(
         "https://{region}-docker.pkg.dev/v2/{tar_repo}/{}/manifests/{}",
         target.name, target.tag
     ));
-    rb = rb.header(
-        http::header::CONTENT_TYPE,
-        "application/vnd.oci.image.manifest.v1+json",
-    );
+    rb = rb.header(http::header::CONTENT_TYPE, content_type);
     rb = rb.body(manifest_raw);
 
     get_bytes(rb).await?;
