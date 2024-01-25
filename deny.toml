@@ -18,14 +18,19 @@ ignore = []
 
 [bans]
 multiple-versions = "deny"
-deny = []
+deny = [
+    { name = "openssl" }, # we use rustls instead
+    { name = "openssl-sys" }, # we use rustls instead
+]
 skip = [
-    # Several crates depend on this old version
-    { name = "base64", version = "=0.13.1" },
-    # schannel/tempfile, using "old" version
-    { name = "windows-sys", version = "=0.42.0" },
-    # syn 2.0 will take a while to filter through the ecosystem
-    { name = "syn", version = "1.0" },
+    # parking_lot depend on these:
+    { name = "windows_x86_64_msvc", version = "=0.48.5" },
+    { name = "windows_x86_64_gnu", version = "=0.48.5" },
+    { name = "windows-targets", version = "=0.48.5" },
+    # multiple crates are still using this:
+    { name = "windows-sys", version = "=0.48.0" },
+    # symbolic-debuginfo -> pdb -> pdb-addr2line:
+    { name = "fallible-iterator",version = "=0.2.0" },
 ]
 skip-tree = [
 ]

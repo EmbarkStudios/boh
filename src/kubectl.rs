@@ -122,9 +122,9 @@ fn load_config(
         .decode(details.cert_data)
         .context("failed to decode cert")?;
 
-    let cert = openssl::x509::X509::from_pem(&cert).context("failed to load cert")?;
+    let cert = reqwest::Certificate::from_pem(&cert).context("failed to load cert")?;
 
-    let client_b = builder.add_root_certificate(reqwest::Certificate::from_der(&cert.to_der()?)?);
+    let client_b = builder.add_root_certificate(cert);
 
     Ok(K8sClient {
         server: details.server,

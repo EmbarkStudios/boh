@@ -20,7 +20,7 @@ rust-version = "1.66.0"
 [dependencies]
 # Friendly error handling
 anyhow = "1.0"
-async-scoped = { version = "0.7", features = ["use-tokio"] }
+async-scoped = { version = "0.8", features = ["use-tokio"] }
 base64 = "0.21"
 # Buffer helpers
 bytes = "1.0"
@@ -30,28 +30,26 @@ clap = { version = "4.0", features = ["derive", "env"] }
 # For futures helpers
 futures-util = { version = "0.3", default-features = false }
 http = "0.2"
-memmap2 = "0.5"
+memmap2 = "0.9"
 # Colors!
-nu-ansi-term = "0.47"
+nu-ansi-term = "0.50"
 # Human friendly byte sizes
 number_prefix = "0.4"
-# Ugh, we _should_ be able to rustls, however...https://github.com/kube-rs/kube/issues/153
-openssl = { version = "0.10", features = ["vendored"] }
 rayon = "1.5"
 # For HTTP requests
 reqwest = { version = "0.11", default-features = false, features = [
   "blocking",
   "json",
-  "native-tls",
+  "rustls-tls",
   "stream",
 ] }
-ring = "0.16"
+ring = "0.17"
 serde = { version = "1.0", features = ["derive"] }
 # JSON serialization
 serde_json = "1.0"
 serde_yaml = "0.9"
-symbolic-common = { version = "10.0", features = ["serde"] }
-symbolic-debuginfo = { version = "10.0", default-features = false, features = [
+symbolic-common = { version = "12.0", features = ["serde"] }
+symbolic-debuginfo = { version = "12.0", default-features = false, features = [
   "breakpad",
   "dwarf",
   "elf",
@@ -64,7 +62,7 @@ symbolic-debuginfo = { version = "10.0", default-features = false, features = [
 # GCS requests
 tame-gcs = { version = "0.12", features = ["signing"] }
 # Authentication
-tame-oauth = { version = "0.8", features = ["gcp"] }
+tame-oauth = { version = "0.9", features = ["gcp"] }
 # Timestamp formatting
 time = { version = "0.3", features = ["formatting", "macros"] }
 # Async runtime
@@ -73,4 +71,4 @@ tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 url = "2.2"
 walkdir = "2.3"
 #wasmtime = "4.0"
-zstd = "0.12"
+zstd = "0.13"
